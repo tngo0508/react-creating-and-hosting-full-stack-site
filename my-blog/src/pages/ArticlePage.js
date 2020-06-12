@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ArticlesList from "../components/ArticlesList";
 import CommentsList from "../components/CommentsList";
 import UpvotesSection from "../components/UpvotesSection";
+import AddCommentForm from "../components/AddCommentForm";
 import NotFoundPage from "./NotFoundPage";
 import articleContent from "./article-content";
 
@@ -15,7 +16,6 @@ const ArticlePage = ({ match }) => {
     const fetchData = async () => {
       const result = await fetch(`/api/articles/${name}`);
       const body = await result.json();
-      console.log(body);
       setArticleInfo(body);
     };
     fetchData();
@@ -39,6 +39,7 @@ const ArticlePage = ({ match }) => {
         <p key={key}>{paragraph}</p>
       ))}
       <CommentsList comments={articleInfo.comments} />
+      <AddCommentForm articleName={name} setAritcleInfo={setArticleInfo} />
       <h3>Other Articles: </h3>
       <ArticlesList articles={otherArticles} />
     </>
